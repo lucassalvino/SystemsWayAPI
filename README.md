@@ -16,7 +16,7 @@ Documentação para a API SystemsWay
   
 **Obs.: Para os exemplos desse tutorial, assuma que a API está ospedada em localhost**
 
-#Considerações iniciais
+# Considerações iniciais
   > * É necessário realizar login somente uma vez, cada login realizado cria uma sessão, as demais atividades serão realizadas conforme essa sessão.
   > * Caso queira trocar a sessão, basta realizar o login novamente, neste caso, a sessão antiga será inativada. E a nova sessão válida será a retornada no login.
   > * Não será possível conseguir o ID de uma sessão, exceto com a realização de um novo login.
@@ -142,3 +142,9 @@ Caso o ID exista, será realizar a atualização dos dodos, utilizando os dados 
 Obs.: Não é necessário enviar o arquivo json completo, somente o campo que foi editado, isso vale para todos os métodos post da api. 
 
 **SEMPRE INFORME O VALOR DO CAMPO Ativo POIS CASO NÃO SEJA INFORMADO, O REGISTRO SERÁ INATIVADO**
+
+## Delete
+> Link Base: http://localhost:5000/api/Usuario/EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF?id=1
+Recebe o ID da sessão e o ID do usuário
+
+Obs.: Nenhum registro será apagado, o delete somente inativa o registro com id informado
