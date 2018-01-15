@@ -124,3 +124,21 @@ Exemplo de Retorno:
  > * O nome do usuário não pode conter espaços
  > * Já Existe um usuário cadastrado com este nome.
  
+ ## Put
+ > Link Base: http://localhost:5000/api/Usuario/EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF?id=1
+ 
+ Recebe um arquivo na URL o id da Sessão e o ID do usuário, ambos obrigatórios, e um arquivo json com os novos dados do usuário.
+ Exemplo de arquivo json:
+ 
+ ```javascript
+{
+    "UserName":"admin",
+    "PassWord":"EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF",
+    "Ativo":"true"
+ }
+ ```
+Caso o ID exista, será realizar a atualização dos dodos, utilizando os dados informados no json.
+
+Obs.: Não é necessário enviar o arquivo json completo, somente o campo que foi editado, isso vale para todos os métodos post da api. 
+
+**SEMPRE INFORME O VALOR DO CAMPO Ativo POIS CASO NÃO SEJA INFORMADO, O REGISTRO SERÁ INATIVADO**
