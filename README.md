@@ -46,4 +46,76 @@ Documentação para a API SystemsWay
     "Message":"Usuário ou senha estão inválidos"
   }
   ```
-  > * Um usuário pode receber ERROR ao tentar realizar um login por um dos motinos: usuário ou senha inválidos, usuário inativo, empresa do usuário inativa.
+  > * Um usuário pode receber ERROR ao tentar realizar um login por um dos motivos: usuário ou senha inválidos, usuário inativo, empresa do usuário inativa.
+
+# Gerência de Usuário
+> Link base: http://localhost:50000/Api/Usuario
+## Get
+	Recebe como parâmetro o id da sessão (Obrigatório) e o id do usuário (opcional).
+### Exemplo de link sem id do usuário:
+> http://localhost:5000/api/Usuario/EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF
+
+Para este exemplo será retornado todos os usuários cadastrados para a mesma empresa do usuário da sessão informada.
+	
+Exemplo de Retorno:
+```javascript
+[{
+    "Id":"1",
+    "UserName":"admin",
+    "Ativo":"true"
+  },
+  {
+    "Id":"2",
+    "UserName":"user2",
+    "Ativo":"true"
+ }]
+ ```
+ ### Exemplo de link com id do usuário:
+ > http://localhost:5000/api/Usuario/EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF?id=1
+ 
+ Para este exemplo será retornado o usuário cadastrado com o id igual a 1
+ Exemplo de Retorno:
+ ```javascript
+[{
+    "Id":"1",
+    "UserName":"admin",
+    "Ativo":"true"
+  }]
+ ```
+ * Caso o ID da sessão informado na URL sejá inválido, será retornado um json com status ERROR, informando que o ID da sessão está inválido. Neste caso, verifique se o id está correto, caso esteja, loge novamente, a sessão pode ter sido inativada pelas rotinas da API (inativação por inatividade, por alteração no usuário vínculado ou alteração no registro da empresa do usuário)
+ 
+ ## Post
+ Recebe um json e o id da sessão do usuário
+ Exemplo de link:
+ > http://localhost:5000/api/Usuario/EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF
+ Arquivo json associado:
+  ```javascript
+{
+    "UserName":"user3",
+    "PassWord":"EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF",
+    "Ativo":"true"
+ }
+ ```
+ Caso o usuário seja cadastrado, será retornado um json informando que o usuário foi cadastrado, tal como o do exemplo:
+  ```javascript
+{
+    "Status":"OK",
+    "IDSessao":"EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF",
+    "Message":"",
+    "StackTrace":""
+ }
+ ```
+ Caso o usuário não seja cadastrado, será retornado um json infotmando o problema:
+   ```javascript
+{
+    "Status":"ERROR",
+    "IDSessao":"EB078EB1ABFC9722EBAB9BA3DD303AFD37DD1AE50A791CBA16ABEE0A727029DF",
+    "Message":"",
+    "StackTrace":""
+ }
+ ```
+ Onde a mensagem pode ser uma das seguintes (Assumindo que o ID da sessão seja válido):
+ > * O formato de senha está incorreto, a senha deve estar sob o Hash SHA/256, com 64 caracteres.
+ > * O nome do usuário não pode conter espaços
+ > * Já Existe um usuário cadastrado com este nome.
+ 
